@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+
+import '../../routes/app_pages.dart';
 
 class ForgetPasswordPage extends StatelessWidget {
   const ForgetPasswordPage({super.key});
@@ -6,7 +9,7 @@ class ForgetPasswordPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 253, 252, 252),
+      backgroundColor: const Color.fromARGB(255, 253, 252, 252),
       body: SingleChildScrollView(
         child: SizedBox(
           height: MediaQuery.of(context).size.height,
@@ -14,8 +17,8 @@ class ForgetPasswordPage extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Column(
               children: [
-                Spacer(),
-                Column(
+                const Spacer(),
+                const Column(
                   children: [
                     Text(
                       "Forgot Password?",
@@ -31,28 +34,28 @@ class ForgetPasswordPage extends StatelessWidget {
                     )
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
                 Column(
                   children: [
                     Image.asset('assets/images/forget.png'),
-                    SizedBox(
+                    const SizedBox(
                       height: 30,
                     ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
+                        const Text(
                           "Email",
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.bold),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         TextFormField(
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                             hintText: 'olalekan@gmail.com',
                             border: InputBorder.none,
                             filled: true,
@@ -61,14 +64,12 @@ class ForgetPasswordPage extends StatelessWidget {
                         ),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 30,
                     ),
-                  
                   ],
                 ),
-                
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 SizedBox(
@@ -76,17 +77,17 @@ class ForgetPasswordPage extends StatelessWidget {
                   width: double.infinity,
                   child: ElevatedButton(
                     onPressed: () {
-                      Navigator.of(context).pushNamed('/checkmail');
+                      GoRouter.of(context).pushNamed(AppRoutes.checkEmail);
                     },
-                    child: Text(
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color.fromARGB(255, 20, 2, 100)),
+                    child: const Text(
                       "Reset Password",
                       style: TextStyle(fontSize: 18),
                     ),
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: Color.fromARGB(255, 20, 2, 100)),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 19,
                 ),
                 SizedBox(
@@ -94,20 +95,19 @@ class ForgetPasswordPage extends StatelessWidget {
                   width: double.infinity,
                   child: ElevatedButton(
                     onPressed: () {
-                      Navigator.of(context).pushNamed('/login');
+                      context.go('/login');
                     },
-                    child: Text(
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: const Color.fromARGB(255, 20, 2, 100),
+                      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+                    ),
+                    child: const Text(
                       "Back to Login",
                       style: TextStyle(fontSize: 18),
                     ),
-                    style: ElevatedButton.styleFrom(
-                      foregroundColor: Color.fromARGB(255, 20, 2, 100),
-                      backgroundColor: Color.fromARGB(255, 255, 255, 255),
-                    ),
                   ),
                 ),
-               
-                Spacer()
+                const Spacer()
               ],
             ),
           ),

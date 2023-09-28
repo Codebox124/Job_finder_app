@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
-class SucesspasswordPage extends StatelessWidget {
-  const SucesspasswordPage({super.key});
+import '../../routes/app_pages.dart';
+
+class PasswordSuccessPage extends StatelessWidget {
+  const PasswordSuccessPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 253, 252, 252),
+      backgroundColor: const Color.fromARGB(255, 253, 252, 252),
       body: SingleChildScrollView(
         child: SizedBox(
           height: MediaQuery.of(context).size.height,
@@ -14,13 +17,15 @@ class SucesspasswordPage extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Column(
               children: [
-                Spacer(),
-                Column(
+                const Spacer(),
+                const Column(
                   children: [
                     Text(
                       "Successfully",
-                      style:
-                          TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     SizedBox(
                       height: 20,
@@ -31,53 +36,49 @@ class SucesspasswordPage extends StatelessWidget {
                     )
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
                 Column(
                   children: [
                     Image.asset('assets/images/checkmail.png'),
-                    SizedBox(
+                    const SizedBox(
                       height: 30,
                     ),
-                   
                   ],
                 ),
-               
                 SizedBox(
                   height: 55,
                   width: double.infinity,
                   child: ElevatedButton(
                     onPressed: () {},
-                    child: Text(
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color.fromARGB(255, 20, 2, 100)),
+                    child: const Text(
                       "Continue",
                       style: TextStyle(fontSize: 18),
                     ),
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: Color.fromARGB(255, 20, 2, 100)),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 19,
                 ),
                 SizedBox(
                   height: 55,
                   width: double.infinity,
                   child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context).pushNamed('/login');
-                    },
-                    child: Text(
+                    onPressed: () => context.goNamed(AppRoutes.login),
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: const Color.fromARGB(255, 20, 2, 100),
+                      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+                    ),
+                    child: const Text(
                       "Back to Login",
                       style: TextStyle(fontSize: 18),
                     ),
-                    style: ElevatedButton.styleFrom(
-                      foregroundColor: Color.fromARGB(255, 20, 2, 100),
-                      backgroundColor: Color.fromARGB(255, 255, 255, 255),
-                    ),
                   ),
                 ),
-                Spacer()
+                const Spacer()
               ],
             ),
           ),

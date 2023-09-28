@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:roadside_assistant_app_ui/controller/provider/auth_provider.dart';
 
-import '../auth/auth.dart';
-
-class SignupPage extends StatelessWidget {
-  const SignupPage({Key? key});
+class SignupPage extends ConsumerWidget {
+  const SignupPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final emailController = TextEditingController();
     final passwordController = TextEditingController();
-   final fullNameController = TextEditingController();
+    final fullNameController = TextEditingController();
 
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 253, 252, 252),
+      backgroundColor: const Color.fromARGB(255, 253, 252, 252),
       body: SingleChildScrollView(
         child: SizedBox(
           height: MediaQuery.of(context).size.height,
@@ -20,8 +21,8 @@ class SignupPage extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Column(
               children: [
-                Spacer(),
-                Column(
+                const Spacer(),
+                const Column(
                   children: [
                     Text(
                       "Create an Account",
@@ -37,25 +38,25 @@ class SignupPage extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
                 Column(
                   children: [
-                     Column(
+                    Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
+                        const Text(
                           "Full Name",
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.bold),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         TextFormField(
                           controller: fullNameController,
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                             hintText: 'John Joe',
                             border: InputBorder.none,
                             filled: true,
@@ -64,23 +65,23 @@ class SignupPage extends StatelessWidget {
                         ),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 30,
                     ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
+                        const Text(
                           "Email",
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.bold),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         TextFormField(
                           controller: emailController,
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                             hintText: 'olalekan@gmail.com',
                             border: InputBorder.none,
                             filled: true,
@@ -89,25 +90,25 @@ class SignupPage extends StatelessWidget {
                         ),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 30,
                     ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
+                        const Text(
                           "Password",
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.bold),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         TextFormField(
                           controller: passwordController,
                           obscureText: true,
-                          decoration: InputDecoration(
-                            hintText:  '******',
+                          decoration: const InputDecoration(
+                            hintText: '******',
                             border: InputBorder.none,
                             filled: true,
                             fillColor: Color.fromARGB(251, 255, 255, 255),
@@ -119,31 +120,30 @@ class SignupPage extends StatelessWidget {
                 ),
                 // Other widgets...
 
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 SizedBox(
                   height: 55,
                   width: double.infinity,
                   child: ElevatedButton(
-                    onPressed: () {
-                      // Call the signUp method when the "Sign Up" button is pressed
-                      signUp(
-                        context,
-                        emailController.text,
-                        passwordController.text,
-                      );
-                    },
-                    child: Text(
+                    onPressed: () async =>
+                        // Call the signUp method when the "Sign Up" button is pressed
+                        await ref.watch(authProvider).signUp(
+                              context,
+                              emailController.text,
+                              passwordController.text,
+                            ),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color.fromARGB(255, 20, 2, 100),
+                    ),
+                    child: const Text(
                       "Sign Up",
                       style: TextStyle(fontSize: 18),
                     ),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Color.fromARGB(255, 20, 2, 100),
-                    ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 19,
                 ),
                 SizedBox(
@@ -151,6 +151,10 @@ class SignupPage extends StatelessWidget {
                   width: double.infinity,
                   child: ElevatedButton(
                     onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: const Color.fromARGB(255, 20, 2, 100),
+                      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+                    ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -159,39 +163,36 @@ class SignupPage extends StatelessWidget {
                           width: 40,
                           height: 40,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 8,
                         ),
-                        Text(
+                        const Text(
                           "Sign up with Google",
                           style: TextStyle(fontSize: 18),
                         ),
                       ],
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      foregroundColor: Color.fromARGB(255, 20, 2, 100),
-                      backgroundColor: Color.fromARGB(255, 255, 255, 255),
                     ),
                   ),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Have have an account ? "),
-                    SizedBox(
+                    const Text("Have have an account ? "),
+                    const SizedBox(
                       width: 3,
                     ),
                     TextButton(
-                        style: TextButton.styleFrom(
-                          foregroundColor: Colors.amber,
-                        ),
-                        onPressed: () {
-                          Navigator.of(context).pushNamed('/login');
-                        },
-                        child: Text("Sign In"))
+                      style: TextButton.styleFrom(
+                        foregroundColor: Colors.amber,
+                      ),
+                      onPressed: () {
+                        context.go('/login');
+                      },
+                      child: const Text("Sign In"),
+                    )
                   ],
                 ),
-                Spacer()
+                const Spacer()
                 // Other widgets...
               ],
             ),

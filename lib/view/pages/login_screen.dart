@@ -1,23 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:roadside_assistant_app_ui/auth/auth.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
-class LoginPage extends StatefulWidget {
+import '../../controller/provider/auth_provider.dart';
+import '../../routes/app_pages.dart';
+
+class LoginPage extends ConsumerWidget {
   const LoginPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
-}
-
-class _LoginPageState extends State<LoginPage> {
-  @override
-  Widget build(BuildContext context) {
-    final _emailController = TextEditingController();
-    final _passwordController = TextEditingController();
-
-    
+  Widget build(BuildContext context, WidgetRef ref) {
+    final emailController = TextEditingController();
+    final passwordController = TextEditingController();
 
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 253, 252, 252),
+      backgroundColor: const Color.fromARGB(255, 253, 252, 252),
       body: SingleChildScrollView(
         child: SizedBox(
           height: MediaQuery.of(context).size.height,
@@ -25,13 +22,15 @@ class _LoginPageState extends State<LoginPage> {
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Column(
               children: [
-                Spacer(),
-                Column(
+                const Spacer(),
+                const Column(
                   children: [
                     Text(
                       "Welcome Back",
-                      style:
-                          TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     SizedBox(
                       height: 20,
@@ -42,7 +41,7 @@ class _LoginPageState extends State<LoginPage> {
                     )
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
                 Column(
@@ -50,17 +49,19 @@ class _LoginPageState extends State<LoginPage> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
+                        const Text(
                           "Email",
                           style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold),
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         TextFormField(
-                          controller: _emailController,
-                          decoration: InputDecoration(
+                          controller: emailController,
+                          decoration: const InputDecoration(
                             hintText: 'olalekan@gmail.com',
                             border: InputBorder.none,
                             filled: true,
@@ -69,25 +70,27 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 30,
                     ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
+                        const Text(
                           "Password",
                           style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold),
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         TextFormField(
-                          controller: _passwordController,
+                          controller: passwordController,
                           obscureText: true,
-                          decoration: InputDecoration(
-                            hintText:  '******',
+                          decoration: const InputDecoration(
+                            hintText: '******',
                             border: InputBorder.none,
                             filled: true,
                             fillColor: Color.fromARGB(251, 255, 255, 255),
@@ -101,11 +104,10 @@ class _LoginPageState extends State<LoginPage> {
                   alignment: Alignment.centerRight,
                   child: TextButton(
                     style: TextButton.styleFrom(
-                        foregroundColor: Color.fromARGB(255, 20, 2, 100)),
-                    onPressed: () {
-                      Navigator.of(context).pushNamed('/forgetpassword');
-                    },
-                    child: Text(
+                        foregroundColor: const Color.fromARGB(255, 20, 2, 100)),
+                    onPressed: () => GoRouter.of(context)
+                        .pushNamed(AppRoutes.forgetPassword),
+                    child: const Text(
                       "Forgot Password ?",
                       style: TextStyle(
                         fontSize: 14,
@@ -113,26 +115,27 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 SizedBox(
                   height: 55,
                   width: double.infinity,
                   child: ElevatedButton(
-                    onPressed: () {
-                      signin(context, _emailController.text,
-                          _passwordController.text);
-                    },
-                    child: Text(
+                    onPressed: () async => await ref.watch(authProvider).signin(
+                          context,
+                          emailController.text,
+                          passwordController.text,
+                        ),
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color.fromARGB(255, 20, 2, 100)),
+                    child: const Text(
                       "Login",
                       style: TextStyle(fontSize: 18),
                     ),
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: Color.fromARGB(255, 20, 2, 100)),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 19,
                 ),
                 SizedBox(
@@ -140,6 +143,10 @@ class _LoginPageState extends State<LoginPage> {
                   width: double.infinity,
                   child: ElevatedButton(
                     onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: const Color.fromARGB(255, 20, 2, 100),
+                      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+                    ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -148,39 +155,35 @@ class _LoginPageState extends State<LoginPage> {
                           width: 40,
                           height: 40,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 8,
                         ),
-                        Text(
+                        const Text(
                           "Sign in with Google",
                           style: TextStyle(fontSize: 18),
                         ),
                       ],
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      foregroundColor: Color.fromARGB(255, 20, 2, 100),
-                      backgroundColor: Color.fromARGB(255, 255, 255, 255),
                     ),
                   ),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("You don't have an account yet? "),
-                    SizedBox(
+                    const Text("You don't have an account yet? "),
+                    const SizedBox(
                       width: 3,
                     ),
                     TextButton(
-                        style: TextButton.styleFrom(
-                          foregroundColor: Colors.amber,
-                        ),
-                        onPressed: () {
-                          Navigator.of(context).pushNamed('/signup');
-                        },
-                        child: Text("Sign up"))
+                      style: TextButton.styleFrom(
+                        foregroundColor: Colors.amber,
+                      ),
+                      onPressed: () =>
+                          GoRouter.of(context).pushNamed(AppRoutes.signup),
+                      child: const Text("Sign up"),
+                    )
                   ],
                 ),
-                Spacer()
+                const Spacer()
               ],
             ),
           ),

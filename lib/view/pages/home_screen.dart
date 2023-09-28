@@ -1,5 +1,10 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+
+import '../../routes/app_pages.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -14,7 +19,7 @@ class HomePage extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
+                const Text(
                   "Hello\nOrlando Diggs",
                   style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                 ),
@@ -24,12 +29,12 @@ class HomePage extends StatelessWidget {
               ],
             ),
             IconButton(
-              icon: Icon(Icons.logout),
+              icon: const Icon(Icons.logout),
               onPressed: () async {
                 // Sign the user out using FirebaseAuth
                 await FirebaseAuth.instance.signOut();
                 // Navigate back to the login page or another desired page
-                Navigator.of(context).pushReplacementNamed('/login');
+                context.go(AppRoutes.login);
               },
             ),
           ],

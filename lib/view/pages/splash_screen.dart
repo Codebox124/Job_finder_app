@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+
+import '../../routes/app_pages.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -6,32 +9,29 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Color.fromARGB(255, 13, 1, 64),
-          onPressed: () {
-            Navigator.of(context).pushReplacementNamed('/login');
-          }, child: Icon(Icons.arrow_forward)),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20,),
+        padding: const EdgeInsets.symmetric(
+          horizontal: 20,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Spacer(),
+            const Spacer(),
             Align(
               alignment: Alignment.centerRight,
               child: TextButton(
                 style: TextButton.styleFrom(foregroundColor: Colors.black),
                 onPressed: () {},
-                child: Text(
+                child: const Text(
                   "Jobspot",
                   style: TextStyle(fontSize: 18),
                 ),
               ),
             ),
-           Spacer(),
+            const Spacer(),
             Image.asset('assets/images/splash.png'),
-          Spacer(),
-            Column(
+            const Spacer(),
+            const Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
@@ -42,13 +42,19 @@ class SplashScreen extends StatelessWidget {
                   height: 12,
                 ),
                 Text(
-                  "Explore all the most exciting job roles based on your interest and study major.",
+                  "Explore all the most exciting job roles basedon your interest and study major.",
                 )
               ],
             ),
-            Spacer()
+            const Spacer()
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: const Color.fromARGB(255, 13, 1, 64),
+        onPressed: () =>
+            GoRouter.of(context).pushReplacementNamed(AppRoutes.login),
+        child: const Icon(Icons.arrow_forward),
       ),
     );
   }
