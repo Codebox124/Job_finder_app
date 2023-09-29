@@ -1,44 +1,29 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
-import '../../routes/app_pages.dart';
+import 'package:roadside_assistant_app_ui/view/components/bottom_bar.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
   @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
   Widget build(BuildContext context) {
+    Menus currentIndex = Menus.home;
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 45, horizontal: 16),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text(
-                  "Hello\nOrlando Diggs",
-                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                ),
-                CircleAvatar(
-                  child: Image.asset("assets/images/Mask group.png"),
-                )
-              ],
-            ),
-            IconButton(
-              icon: const Icon(Icons.logout),
-              onPressed: () async {
-                // Sign the user out using FirebaseAuth
-                await FirebaseAuth.instance.signOut();
-                // Navigate back to the login page or another desired page
-                context.go(AppRoutes.login);
-              },
-            ),
-          ],
-        ),
+      body: pages[currentIndex.index],
+      bottomNavigationBar: BottomBar(
+        currentIndex: currentIndex,
+        onTap: (value) {
+          setState(() {
+            currentIndex = value;
+          });
+        },
       ),
     );
   }
